@@ -1,11 +1,9 @@
-from __future__ import annotations
-
 import re
 from collections.abc import Mapping, Set as AbstractSet
 from itertools import count
 from os import linesep
 from textwrap import dedent
-from typing import Annotated, TypeVar, get_args, get_origin
+from typing import Annotated, TypeAliasType, get_args, get_origin
 
 from pydantic import TypeAdapter
 from typing_extensions import is_typeddict
@@ -30,10 +28,10 @@ def _indent(code: str, /) -> str:
 _KEY_PROPERTY_NAME = "key"
 _NAME_PROPERTY_NAME = "name"
 
-_T = TypeVar("_T")
 
-
-def _unwrap_type(type_: type[_T], /) -> tuple[type[_T], Node | None]:
+def _unwrap_type[T](type_: type[T], /) -> tuple[type[T], Node | None]:
+    if isinstance(type_, TypeAliasType):
+        return _unwrap_type(type_.__value__)
     match get_origin(type_), get_args(type_):
         case origin, (unwrapped_type, (Node() as node)) if origin is Annotated:
             return unwrapped_type, node
@@ -62,9 +60,9 @@ _SKELETON_DOCSTRING = dedent('''\
 ''')
 
 
-def _generate_class_name_and_lines(
-    skeleton: _T,
-    skeleton_type: type[_T],
+def _generate_class_name_and_lines[T](
+    skeleton: T,
+    skeleton_type: type[T],
     /,
     *,
     is_root: bool = False,
@@ -156,7 +154,7 @@ def _generate_class_name_and_lines(
     )
 
 
-def generate(skeleton: _T, skeleton_type: type[_T], /) -> str:
+def generate[T](skeleton: T, skeleton_type: type[T], /) -> str:
     skeleton = TypeAdapter(skeleton_type).validate_python(skeleton)
     _, lines = _generate_class_name_and_lines(
         skeleton, skeleton_type, is_root=True, path=()

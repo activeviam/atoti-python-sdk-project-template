@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    depends_on:
+      - jaeger
+    environment:
+      DATA_REFRESH_PERIOD: ${DATA_REFRESH_PERIOD-}
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+    healthcheck:
+      start_period: 30s
+      test: ["CMD", "curl", "--fail", "http://localhost:80"]
+    ports:
+      - 80
+
+  jaeger:
+    image: cr.jaegertracing.io/jaegertracing/jaeger:2.16.0
+    ports:
+      - 4318 # OTLP HTTP
+      - 16686 # UI
+    healthcheck:
+      start_period: 3s
+      test: ["CMD", "curl", "--fail", "http://localhost:13133/status"]

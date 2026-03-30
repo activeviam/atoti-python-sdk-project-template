@@ -1,23 +1,19 @@
 from collections.abc import Mapping, Set as AbstractSet
-from typing import Annotated, TypeAlias
-
-from typing_extensions import TypedDict
+from typing import Annotated, TypedDict
 
 from .node import Node
 
-_ColumnSkeleton: TypeAlias = Annotated[str, Node(key_length=2)]
-_TableSkeleton: TypeAlias = Annotated[AbstractSet[_ColumnSkeleton], Node()]
-_TablesSkeleton: TypeAlias = Mapping[str, _TableSkeleton]
+type _ColumnSkeleton = Annotated[str, Node(key_length=2)]
+type _TableSkeleton = Annotated[AbstractSet[_ColumnSkeleton], Node()]
+type _TablesSkeleton = Mapping[str, _TableSkeleton]
 
-_LevelSkeleton: TypeAlias = Annotated[str, Node(key_length=3)]
-_HierarchySkeleton: TypeAlias = Annotated[
-    AbstractSet[_LevelSkeleton], Node(key_length=2)
-]
-_DimensionSkeleton: TypeAlias = Mapping[str, _HierarchySkeleton]
-_DimensionsSkeleton: TypeAlias = Mapping[str, _DimensionSkeleton]
+type _LevelSkeleton = Annotated[str, Node(key_length=3)]
+type _HierarchySkeleton = Annotated[AbstractSet[_LevelSkeleton], Node(key_length=2)]
+type _DimensionSkeleton = Mapping[str, _HierarchySkeleton]
+type _DimensionsSkeleton = Mapping[str, _DimensionSkeleton]
 
-_MeasureSkeleton: TypeAlias = Annotated[str, Node()]
-_MeasuresSkeleton: TypeAlias = AbstractSet[_MeasureSkeleton]
+type _MeasureSkeleton = Annotated[str, Node()]
+type _MeasuresSkeleton = AbstractSet[_MeasureSkeleton]
 
 
 class __CubeSkeleton(TypedDict):
@@ -25,9 +21,9 @@ class __CubeSkeleton(TypedDict):
     measures: _MeasuresSkeleton
 
 
-_CubeSkeleton: TypeAlias = Annotated[__CubeSkeleton, Node()]
+type _CubeSkeleton = Annotated[__CubeSkeleton, Node()]
 
-_CubesSkeleton: TypeAlias = Mapping[str, _CubeSkeleton]
+type _CubesSkeleton = Mapping[str, _CubeSkeleton]
 
 
 class Skeleton(TypedDict):

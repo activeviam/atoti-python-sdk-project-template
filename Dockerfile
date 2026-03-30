@@ -4,7 +4,7 @@
 # Keep Python version in sync with:
 # - pyproject.toml's `project.requires-python`.
 # - the main stage below.
-FROM ghcr.io/astral-sh/uv:0.9.18-python3.11-bookworm-slim AS builder
+FROM ghcr.io/astral-sh/uv:0.11.2-python3.12-trixie-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
@@ -21,7 +21,7 @@ RUN --mount=type=bind,source=skeleton,target=skeleton_tmp \
     rm -r app
 
 # Keep this synced with the `builder` stage above.
-FROM python:3.11-slim-bookworm
+FROM python:3.12-slim-trixie
 
 COPY --from=builder /venv app
 

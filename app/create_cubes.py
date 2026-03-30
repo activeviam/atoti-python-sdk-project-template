@@ -1,9 +1,11 @@
 import atoti as tt
 
+from .opentelemetry import traced
 from .skeleton import Skeleton
 from .util import column, fact_based_hierarchy
 
 
+@traced
 def create_station_cube(session: tt.Session, /) -> None:
     skeleton = Skeleton.cubes.STATION
 
@@ -59,5 +61,6 @@ def create_station_cube(session: tt.Session, /) -> None:
         )
 
 
+@traced
 def create_cubes(session: tt.Session, /) -> None:
     create_station_cube(session)

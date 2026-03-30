@@ -1,5 +1,13 @@
 [dependency-groups]
-dev = ["anyio", "docker", "pandas-stubs", "pytest", "ruff", "ty"]
+dev = [
+    "anyio",
+    "docker",
+    # Same bounds as `pandas` in `project.dependencies`.
+    "pandas-stubs>=2.2.3,<3.0.0.rc0",
+    "pytest",
+    "ruff",
+    "ty",
+]
 
 [project]
 name = "app"
@@ -7,11 +15,14 @@ version = "0.1.0"
 # Keep in sync with:
 # - .github/workflows/test.yml
 # - Dockerfile`'s `FROM` commands.
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "atoti[jdbc]",
+    "atoti[jdbc,observability]",
     "httpx",
-    "pandas",
+    "opentelemetry-exporter-otlp-proto-http",
+    "opentelemetry-instrumentation-httpx",
+    "opentelemetry-sdk",
+    "pandas>=2.2.3,<3.0.0.rc0",
     "pydantic",
     "pydantic-settings",
     "typing-extensions",
@@ -61,9 +72,6 @@ pandas = "pd"
 [tool.ruff.lint.isort]
 combine-as-imports = true
 
-[tool.ty.rules]
-unused-ignore-comment = "warn"
-
 [tool.ty.terminal]
 error-on-warning = true
 
@@ -71,4 +79,4 @@ error-on-warning = true
 # Keep in sync with:
 # - .github/workflows/test.yml
 # - Dockerfile`'s `builder`.
-required-version = ">=0.9.18"
+required-version = ">=0.11.2"

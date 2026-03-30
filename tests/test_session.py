@@ -11,6 +11,9 @@ async def test_total_capacity(session: tt.Session) -> None:
     cube = session.cubes[skeleton.name]
     m = cube.measures
     result = cube.query(m[skeleton.measures.CAPACITY.name])
+    assert isinstance(  # Remove once ty detects it on its own.
+        result, pd.DataFrame
+    )
     expected_result = pd.DataFrame(
         {
             skeleton.measures.CAPACITY.name: pd.Series(
@@ -30,6 +33,9 @@ async def test_departments(session: tt.Session) -> None:
         levels=[
             l[skeleton.dimensions.STATION_INFORMATION.LOCATION.DEPARTMENT.key],
         ],
+    )
+    assert isinstance(  # Remove once ty detects it on its own.
+        result, pd.DataFrame
     )
     assert list(result.index) == [
         "75, Paris, Île-de-France",

@@ -3,7 +3,7 @@ from collections.abc import Awaitable, Callable, Iterable, Mapping, Set as Abstr
 from functools import wraps
 from io import BytesIO, StringIO
 from pathlib import Path
-from typing import IO, Concatenate, ParamSpec
+from typing import IO, Concatenate
 
 import httpx
 import pandas as pd
@@ -24,17 +24,14 @@ _COLUMN_NAME_MAPPING: Mapping[str, str] = {
 }
 
 
-_P = ParamSpec("_P")
-
-
-def _cache(
+def _cache[**P](
     function: Callable[
-        Concatenate[AbstractSet[_Coordinates], _P],
+        Concatenate[AbstractSet[_Coordinates], P],
         Awaitable[_ReverseGeocodedCoordinates],
     ],
     /,
 ) -> Callable[
-    Concatenate[AbstractSet[_Coordinates], _P], Awaitable[_ReverseGeocodedCoordinates]
+    Concatenate[AbstractSet[_Coordinates], P], Awaitable[_ReverseGeocodedCoordinates]
 ]:
     cache: _ReverseGeocodedCoordinates = {}
 
@@ -42,8 +39,8 @@ def _cache(
     async def function_wrapper(
         coordinates: AbstractSet[_Coordinates],
         /,
-        *args: _P.args,
-        **kwargs: _P.kwargs,
+        *args: P.args,
+        **kwargs: P.kwargs,
     ) -> _ReverseGeocodedCoordinates:
         uncached_coordinates = coordinates - set(cache)
         result = await function(uncached_coordinates, *args, **kwargs)

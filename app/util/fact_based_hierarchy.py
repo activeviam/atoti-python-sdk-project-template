@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Protocol, TypeVar
+from typing import Protocol
 
 import atoti as tt
 
@@ -16,13 +16,10 @@ class _HierarchySkeleton(Protocol):
     def key(self) -> tuple[str, str]: ...
 
 
-_Hierarchy = TypeVar("_Hierarchy", bound=_HierarchySkeleton)
-
-
-def fact_based_hierarchy(
+def fact_based_hierarchy[Hierarchy: _HierarchySkeleton](
     session: tt.Session,
-    hierarchy: _Hierarchy,
-    get_mapping: Callable[[_Hierarchy], dict[_LevelSkeleton, _ColumnSkeleton]],
+    hierarchy: Hierarchy,
+    get_mapping: Callable[[Hierarchy], dict[_LevelSkeleton, _ColumnSkeleton]],
     /,
 ) -> tuple[tuple[str, str], dict[str, tt.Column]]:
     return hierarchy.key, {

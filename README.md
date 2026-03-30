@@ -7,6 +7,7 @@ On top of the `atoti` package, it comes with:
 - Dependency management with [uv](https://docs.astral.sh/uv)
 - Config management with [Pydantic](https://docs.pydantic.dev/2.6/concepts/pydantic_settings)
 - Testing with [pytest](https://docs.pytest.org)
+- Observability with [OpenTelemetry](https://opentelemetry.io/docs/languages/python)
 - Type checking with [ty](https://docs.astral.sh/ty)
 - Formatting and linting with [Ruff](https://docs.astral.sh/ruff)
 - Continuous testing with [GitHub Actions](https://github.com/features/actions)
@@ -28,6 +29,12 @@ To start the app:
 
 ```bash
 uv run python -m app
+```
+
+To start the app in Docker with [Jaeger](https://www.jaegertracing.io) to observe traces:
+
+```bash
+docker compose up --build
 ```
 
 Other useful commands can be found in [`test.yml`](.github/workflows/test.yml).

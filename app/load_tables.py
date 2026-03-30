@@ -1,6 +1,5 @@
 from asyncio import gather
 from collections.abc import Iterable, Mapping
-from logging import getLogger
 from pathlib import Path
 from typing import Any, cast
 
@@ -10,13 +9,13 @@ import pandas as pd
 from pydantic import DirectoryPath, FilePath, HttpUrl
 
 from .config import Config
+from .opentelemetry import traced
 from .path import RESOURCES_DIRECTORY
 from .skeleton import Skeleton
 from .util import read_json, reverse_geocode
 
-_LOGGER = getLogger(__name__)
 
-
+@traced
 async def read_station_information(
     *,
     http_client: httpx.AsyncClient,
@@ -73,6 +72,7 @@ async def read_station_information(
     ).drop(columns=coordinates_column_names)
 
 
+@traced
 async def read_station_status(
     velib_data_base_path: HttpUrl | Path,
     /,
@@ -106,6 +106,7 @@ async def read_station_status(
     return pd.DataFrame(station_statuses)
 
 
+@traced
 async def load_tables(
     session: tt.Session,
     /,
@@ -113,7 +114,6 @@ async def load_tables(
     config: Config,
     http_client: httpx.AsyncClient,
 ) -> None:
-    _LOGGER.info("Loading tables.")
     if config.data_refresh_period is None:
         reverse_geocoding_path: HttpUrl | FilePath = (
             RESOURCES_DIRECTORY / "station_location.csv"
@@ -151,4 +151,3 @@ async def load_tables(
                 station_status_df
             ),
         )
-    _LOGGER.info("Tables loaded.")
