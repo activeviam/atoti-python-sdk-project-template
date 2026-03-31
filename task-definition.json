@@ -1,5 +1,5 @@
 {
-    "executionRoleArn": "AWS_EXECUTION_ROLE",
+    "executionRoleArn": "AWS_EXECUTION_ROLE_PLACEHOLDER",
     "containerDefinitions": [
         {
             "name": "atoti-session",
@@ -14,7 +14,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-group": "/ecs/atoti-project-template",
-                    "awslogs-region": "AWS_REGION",
+                    "awslogs-region": "AWS_REGION_PLACEHOLDER",
                     "awslogs-stream-prefix": "ecs"
                 }
             },
@@ -25,10 +25,19 @@
                     "containerPort": 80
                 }
             ],
+            "healthCheck": {
+                "command": [
+                    "CMD",
+                    "python",
+                    "-c",
+                    "import httpx; httpx.get('http://localhost/actuator/health/readiness').raise_for_status()"
+                ],
+                "startPeriod": 30
+            },
             "secrets": [
                 {
                     "name": "DATABASE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:AWS_REGION:AWS_ACCOUNT_ID:secret:atoti-project-template/AWS_DATABASE_URL_SECRET_NAME"
+                    "valueFrom": "arn:aws:secretsmanager:AWS_REGION_PLACEHOLDER:AWS_ACCOUNT_ID_PLACEHOLDER:secret:atoti-project-template/AWS_DATABASE_URL_SECRET_NAME_PLACEHOLDER"
                 }
             ]
         }
