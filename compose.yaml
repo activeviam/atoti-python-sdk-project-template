@@ -2,21 +2,22 @@ services:
   app:
     build: .
     depends_on:
-      - jaeger
+      jaeger:
+        condition: service_healthy
     environment:
-      DATA_REFRESH_PERIOD: ${DATA_REFRESH_PERIOD-}
+      DATA_REFRESH_PERIOD:
       OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
     healthcheck:
       start_period: 30s
-      test: ["CMD", "curl", "--fail", "http://localhost:80"]
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost/actuator/health/readiness').raise_for_status()"]
     ports:
-      - 80
+      - "127.0.0.1::80"
 
   jaeger:
     image: cr.jaegertracing.io/jaegertracing/jaeger:2.16.0
     ports:
-      - 4318 # OTLP HTTP
-      - 16686 # UI
+      - "127.0.0.1::4318" # OTLP HTTP
+      - "127.0.0.1::16686" # UI
     healthcheck:
       start_period: 3s
-      test: ["CMD", "curl", "--fail", "http://localhost:13133/status"]
+      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:13133/status"]
