@@ -5,7 +5,7 @@ from typing import Final
 
 from opentelemetry import trace
 
-TRACER: Final = trace.get_tracer(__name__)
+TRACER: Final = trace.get_tracer("app")
 
 
 def span[**P, R](func: Callable[P, R], /) -> Callable[P, R]:
