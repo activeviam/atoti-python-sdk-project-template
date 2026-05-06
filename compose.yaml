@@ -2,22 +2,19 @@ services:
   app:
     build: .
     depends_on:
-      jaeger:
-        condition: service_healthy
+      - aspire-dashboard
     environment:
       DATA_REFRESH_PERIOD:
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18890
     healthcheck:
       start_period: 30s
       test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost/actuator/health/readiness').raise_for_status()"]
     ports:
       - "127.0.0.1::80"
 
-  jaeger:
-    image: cr.jaegertracing.io/jaegertracing/jaeger:2.16.0
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.2.0
+    environment:
+      ASPIRE_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
     ports:
-      - "127.0.0.1::4318" # OTLP HTTP
-      - "127.0.0.1::16686" # UI
-    healthcheck:
-      start_period: 3s
-      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:13133/status"]
+      - "127.0.0.1::18888" # UI

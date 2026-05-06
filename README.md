@@ -31,7 +31,7 @@ To start the app:
 uv run python -m app
 ```
 
-To start the app in Docker with [Jaeger](https://www.jaegertracing.io) to observe traces:
+To start the app in Docker with the [Aspire Dashboard](https://aspire.dev/dashboard/standalone/) to observe traces:
 
 ```bash
 docker compose up --build
