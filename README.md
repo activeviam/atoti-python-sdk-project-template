@@ -31,7 +31,7 @@ To start the app:
 uv run python -m app
 ```
 
-To start the app in Docker with the [Aspire Dashboard](https://aspire.dev/dashboard/standalone/) to observe traces:
+To start the app in Docker with [Grafana OpenTelemetry LGTM](https://grafana.com/docs/opentelemetry/docker-lgtm):
 
 ```bash
 docker compose up --build
