@@ -31,7 +31,7 @@ To start the app:
 uv run python -m app
 ```
 
-To start the app in Docker with [Jaeger](https://www.jaegertracing.io) to observe traces:
+To start the app in Docker with [Grafana OpenTelemetry LGTM](https://grafana.com/docs/opentelemetry/docker-lgtm):
 
 ```bash
 docker compose up --build
