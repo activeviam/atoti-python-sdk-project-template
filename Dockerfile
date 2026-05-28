@@ -34,4 +34,4 @@ ENV PORT=80
 
 EXPOSE $PORT
 
-CMD ["python", "-O", "-u", "-m", "app"]
+CMD ["python", "-OO", "-u", "-m", "app"]
