@@ -33,13 +33,7 @@
                     "import httpx; httpx.get('http://localhost/actuator/health/readiness').raise_for_status()"
                 ],
                 "startPeriod": 30
-            },
-            "secrets": [
-                {
-                    "name": "DATABASE_URL",
-                    "valueFrom": "arn:aws:secretsmanager:AWS_REGION_PLACEHOLDER:AWS_ACCOUNT_ID_PLACEHOLDER:secret:atoti-project-template/AWS_DATABASE_URL_SECRET_NAME_PLACEHOLDER"
-                }
-            ]
+            }
         }
     ],
     "family": "atoti-project-template",

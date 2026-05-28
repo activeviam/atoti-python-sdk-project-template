@@ -19,7 +19,6 @@ def project_name_fixture() -> str:
 def config_fixture() -> Config:
     return Config(
         port=0,
-        user_content_storage=None,
     )
 
 

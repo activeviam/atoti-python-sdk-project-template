@@ -29,7 +29,7 @@ name = "app"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "atoti", extra = ["jdbc", "observability"] },
+    { name = "atoti", extra = ["observability"] },
     { name = "httpx" },
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-instrumentation-httpx" },
@@ -52,7 +52,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "atoti", extras = ["jdbc", "observability"] },
+    { name = "atoti", extras = ["observability"] },
     { name = "httpx" },
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-instrumentation-httpx" },
@@ -89,10 +89,6 @@ wheels = [
 ]
 
 [package.optional-dependencies]
-jdbc = [
-    { name = "atoti-client-jdbc" },
-    { name = "atoti-server-jdbc" },
-]
 observability = [
     { name = "atoti-client-observability" },
     { name = "atoti-server-observability" },
@@ -116,19 +112,6 @@ dependencies = [
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/1f/18/203bb444c0abfc23b62ccf88f96cdd6967ddf030431aed4c176912d44e78/atoti_client-0.9.14-py3-none-any.whl", hash = "sha256:c6b202049d3eb03ef28656a9811fa8202aa0a6ff6a1e44f5f4d8d67bbcb2773b", size = 4590426, upload-time = "2026-04-17T21:27:36.221Z" },
-]
-
-[[package]]
-name = "atoti-client-jdbc"
-version = "0.9.14"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "atoti-client" },
-    { name = "pydantic" },
-    { name = "typing-extensions" },
-]
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/af/c3/a81cc94029fe230b9598f6d6b8e85761e2c5b1e816d3ce390e6177e0e8b3/atoti_client_jdbc-0.9.14-py3-none-any.whl", hash = "sha256:1d5feceb1fc0d3c134458f03ba7fb8fa1c4539f3fa6dbd2adf5cf3dfdb321532", size = 7844, upload-time = "2026-04-17T21:27:50.295Z" },
 ]
 
 [[package]]
@@ -174,18 +157,6 @@ dependencies = [
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8a/ea/d671f5fb004a725f41dc97f8cb3eb27afa083099a1ee3305e77bf55a9c7d/atoti_server-0.9.14-py3-none-any.whl", hash = "sha256:353a0406ddff88368125a791e567df9b6fdd5ed2308a785c0db0f328dd09d0e9", size = 128454770, upload-time = "2026-04-17T21:28:01.569Z" },
-]
-
-[[package]]
-name = "atoti-server-jdbc"
-version = "0.9.14"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "atoti-core" },
-    { name = "typing-extensions" },
-]
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dd/17/a934e3cef89d4453152eb43e818a83586905124a6179d3e5ba83bd0d13ac/atoti_server_jdbc-0.9.14-py3-none-any.whl", hash = "sha256:ce326f1b0900f851a06750fbc08b2d806bd87e378fd45249b4f0d19bb453be78", size = 18464566, upload-time = "2026-04-17T21:28:33.186Z" },
 ]
 
 [[package]]
