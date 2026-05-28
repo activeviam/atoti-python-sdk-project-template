@@ -17,7 +17,7 @@ version = "0.1.0"
 # - Dockerfile`'s `FROM` commands.
 requires-python = ">=3.12"
 dependencies = [
-    "atoti[jdbc,observability]",
+    "atoti[observability]",
     "httpx",
     "opentelemetry-exporter-otlp-proto-http",
     "opentelemetry-instrumentation-httpx",

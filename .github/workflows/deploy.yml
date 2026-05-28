@@ -34,7 +34,6 @@ jobs:
         run: >
           sed -i
           -e 's/AWS_ACCOUNT_ID_PLACEHOLDER/${{ secrets.AWS_ACCOUNT_ID }}/g'
-          -e 's/AWS_DATABASE_URL_SECRET_NAME_PLACEHOLDER/${{ vars.AWS_DATABASE_URL_SECRET_NAME }}/g'
           -e 's/AWS_EXECUTION_ROLE_PLACEHOLDER/${{ vars.AWS_EXECUTION_ROLE }}/g'
           -e 's/AWS_REGION_PLACEHOLDER/${{ vars.AWS_REGION }}/g'
           task-definition.json
