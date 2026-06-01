@@ -22,7 +22,7 @@ def docker_bin_fixture() -> Path:
 
 
 @pytest.fixture(name="docker_client", scope="session")
-def docker_client_fixture() -> Generator[docker.DockerClient, None, None]:
+def docker_client_fixture() -> Generator[docker.DockerClient]:
     with closing(docker.from_env()) as client:
         yield client
 
@@ -30,7 +30,7 @@ def docker_client_fixture() -> Generator[docker.DockerClient, None, None]:
 @pytest.fixture(name="docker_image_name", scope="session")
 def docker_image_name_fixture(
     docker_bin: Path, docker_client: docker.DockerClient, project_name: str
-) -> Generator[str, None, None]:
+) -> Generator[str]:
     tag = f"{project_name}:{uuid4()}"
 
     # BuildKit is enabled by default for all users on Docker Desktop.
@@ -53,7 +53,7 @@ def docker_image_name_fixture(
 @pytest.fixture(name="session_inside_docker_container", scope="session")
 def session_inside_docker_container_fixture(
     docker_client: docker.DockerClient, docker_image_name: str
-) -> Generator[tt.Session, None, None]:
+) -> Generator[tt.Session]:
     timeout = Timeout(timedelta(minutes=1))
 
     with docker_container(

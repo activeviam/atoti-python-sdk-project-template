@@ -3,10 +3,9 @@ from collections.abc import Mapping, Set as AbstractSet
 from itertools import count
 from os import linesep
 from textwrap import dedent
-from typing import Annotated, TypeAliasType, get_args, get_origin
+from typing import Annotated, TypeAliasType, get_args, get_origin, is_typeddict
 
 from pydantic import TypeAdapter
-from typing_extensions import is_typeddict
 
 from .node import Node
 

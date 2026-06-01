@@ -13,9 +13,9 @@ jobs:
         with:
           enable-cache: true
           # Keep in sync with pyproject.toml's `tool.uv.required-version`.
-          version: "0.11.2"
+          version: "0.11.17"
       # Keep in sync with pyproject.toml's `project.requires-python`.
-      - run: uv python install 3.12
+      - run: uv python install 3.14
       - run: uv sync --locked
       - run: uv run -m skeleton
       - run: uv run ruff format --check

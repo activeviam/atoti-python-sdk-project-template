@@ -15,17 +15,16 @@ version = "0.1.0"
 # Keep in sync with:
 # - .github/workflows/test.yml
 # - Dockerfile`'s `FROM` commands.
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 dependencies = [
     "atoti[observability]",
     "httpx",
     "opentelemetry-exporter-otlp-proto-http",
     "opentelemetry-instrumentation-httpx",
     "opentelemetry-sdk",
-    "pandas>=2.2.3,<3.0.0.rc0",
+    "pandas",
     "pydantic",
     "pydantic-settings",
-    "typing-extensions",
 ]
 
 [tool.pytest]
@@ -79,4 +78,4 @@ error-on-warning = true
 # Keep in sync with:
 # - .github/workflows/test.yml
 # - Dockerfile`'s `builder`.
-required-version = ">=0.11.2"
+required-version = ">=0.11.17"
