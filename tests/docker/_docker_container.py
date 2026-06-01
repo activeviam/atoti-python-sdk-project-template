@@ -14,7 +14,7 @@ def docker_container(
     client: docker.DockerClient,
     container_name: str | None = None,
     env: Mapping[str, str] | None = None,
-) -> Generator[Container, None, None]:
+) -> Generator[Container]:
     container = client.containers.run(
         image_name,
         detach=True,
