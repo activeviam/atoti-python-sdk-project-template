@@ -4,7 +4,7 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 import atoti as tt
-import httpx
+import httpx2
 
 from .config import Config
 from .create_and_join_tables import create_and_join_tables
@@ -23,7 +23,7 @@ def _create_data_model(session: tt.Session, /) -> None:
 async def start_session(
     *,
     config: Config,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
 ) -> AsyncGenerator[tt.Session]:
     """Start the session, declare the data model and load the initial data."""
     session_config = tt.SessionConfig(

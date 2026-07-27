@@ -9,12 +9,12 @@ services:
       OTEL_EXPORTER_OTLP_ENDPOINT: http://grafana-otel-lgtm:4318 # HTTP
     healthcheck:
       start_period: 30s
-      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost/actuator/health/readiness').raise_for_status()"]
+      test: ["CMD", "python", "-c", "import httpx2; httpx2.get('http://localhost/actuator/health/readiness').raise_for_status()"]
     ports:
       - "127.0.0.1::80"
 
   grafana-otel-lgtm:
-    image: grafana/otel-lgtm:0.27.0
+    image: grafana/otel-lgtm:0.29.2
     ports:
       - "127.0.0.1::3000" # UI
     healthcheck:

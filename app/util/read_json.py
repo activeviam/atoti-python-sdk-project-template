@@ -3,7 +3,7 @@ from asyncio import to_thread
 from pathlib import Path
 
 import anyio
-import httpx
+import httpx2
 from pydantic import HttpUrl
 
 
@@ -12,7 +12,7 @@ async def read_json(
     file_path: Path,
     /,
     *,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
 ) -> object:
     if isinstance(base_path, Path):
         json_bytes = await anyio.Path(base_path / file_path).read_bytes()
