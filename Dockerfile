@@ -4,7 +4,7 @@
 # Keep Python version in sync with:
 # - pyproject.toml's `project.requires-python`.
 # - the main stage below.
-FROM ghcr.io/astral-sh/uv:0.11.17-python3.14-trixie-slim AS builder
+FROM ghcr.io/astral-sh/uv:0.11.32-python3.14-trixie-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 

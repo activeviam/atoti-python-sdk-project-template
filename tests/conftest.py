@@ -1,18 +1,9 @@
 from collections.abc import AsyncGenerator
-from pathlib import Path
 
 import atoti as tt
 import pytest
 
 from app import Config, start_app
-
-_TESTS_DIRECTORY = Path(__file__).parent
-_PROJECT_DIRECTORY = _TESTS_DIRECTORY.parent
-
-
-@pytest.fixture(name="project_name", scope="session")
-def project_name_fixture() -> str:
-    return _PROJECT_DIRECTORY.name
 
 
 @pytest.fixture(name="config", scope="session")

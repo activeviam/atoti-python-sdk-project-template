@@ -5,7 +5,7 @@ from io import BytesIO, StringIO
 from pathlib import Path
 from typing import IO, Concatenate
 
-import httpx
+import httpx2
 import pandas as pd
 from pydantic import HttpUrl
 
@@ -62,7 +62,7 @@ async def _reverse_geocode(
     coordinates: AbstractSet[_Coordinates],
     /,
     *,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
     reverse_geocoding_path: HttpUrl | Path,
 ) -> _ReverseGeocodedCoordinates:
     if not coordinates:
@@ -101,7 +101,7 @@ async def reverse_geocode(
     coordinates: Iterable[_Coordinates],
     /,
     *,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
     reverse_geocoding_path: HttpUrl | Path,
 ) -> pd.DataFrame:
     data = await _reverse_geocode(

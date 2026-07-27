@@ -1,13 +1,5 @@
 [dependency-groups]
-dev = [
-    "anyio",
-    "docker",
-    # Same bounds as `pandas` in `project.dependencies`.
-    "pandas-stubs>=2.2.3,<3.0.0.rc0",
-    "pytest",
-    "ruff",
-    "ty",
-]
+dev = ["anyio", "docker", "pandas-stubs", "pytest", "ruff", "ty"]
 
 [project]
 name = "app"
@@ -18,7 +10,7 @@ version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
     "atoti[observability]",
-    "httpx",
+    "httpx2",
     "opentelemetry-exporter-otlp-proto-http",
     "opentelemetry-instrumentation-httpx",
     "opentelemetry-sdk",
@@ -39,6 +31,7 @@ docstring-code-format = true
 [tool.ruff.lint]
 ignore = [
     "COM812",  # Covered by the formatter.
+    "CPY001",
     "D100",
     "D101",
     "D102",
@@ -78,4 +71,4 @@ error-on-warning = true
 # Keep in sync with:
 # - .github/workflows/test.yml
 # - Dockerfile`'s `builder`.
-required-version = ">=0.11.17"
+required-version = ">=0.11.32"

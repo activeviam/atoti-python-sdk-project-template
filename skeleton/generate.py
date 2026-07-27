@@ -20,6 +20,11 @@ def _identifier(name: str, /) -> str:
     return re.sub(r"\W|^(?=\d)", "_", name)
 
 
+def _str(value: object, /) -> str:
+    assert isinstance(value, str)
+    return value
+
+
 def _indent(code: str, /) -> str:
     return f"{' ' * 4}{code}"
 
@@ -79,12 +84,12 @@ def _generate_class_name_and_lines[T](
                 case typed_dict if is_typeddict(typed_dict):
                     assert isinstance(skeleton, Mapping)
                     class_name_and_lines_from_attribute_name = {
-                        attribute_name: _generate_class_name_and_lines(
-                            skeleton[attribute_name],
-                            annotation,
+                        _str(attribute_name): _generate_class_name_and_lines(
+                            attribute_value,
+                            typed_dict.__annotations__[_str(attribute_name)],
                             path=path,
                         )
-                        for attribute_name, annotation in typed_dict.__annotations__.items()
+                        for attribute_name, attribute_value in skeleton.items()
                     }
                 case _:
                     raise TypeError(f"Unsupported skeleton type: {skeleton_type}.")

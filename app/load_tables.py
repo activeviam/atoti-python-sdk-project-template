@@ -1,10 +1,10 @@
-from asyncio import gather
+from asyncio import gather, to_thread
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any, cast
 
 import atoti as tt
-import httpx
+import httpx2
 import pandas as pd
 from pydantic import DirectoryPath, FilePath, HttpUrl
 
@@ -18,7 +18,7 @@ from .util import read_json, reverse_geocode
 @span
 async def read_station_information(
     *,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
     reverse_geocoding_path: HttpUrl | Path,
     velib_data_base_path: HttpUrl | Path,
 ) -> pd.DataFrame:
@@ -77,7 +77,7 @@ async def read_station_status(
     velib_data_base_path: HttpUrl | Path,
     /,
     *,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
 ) -> pd.DataFrame:
     skeleton = Skeleton.tables.STATION_STATUS
 
@@ -112,7 +112,7 @@ async def load_tables(
     /,
     *,
     config: Config,
-    http_client: httpx.AsyncClient,
+    http_client: httpx2.AsyncClient,
 ) -> None:
     if config.data_refresh_period is None:
         reverse_geocoding_path: HttpUrl | FilePath = (
@@ -144,10 +144,12 @@ async def load_tables(
         session.tables.data_transaction(),
     ):
         await gather(
-            session.tables[Skeleton.tables.STATION_INFORMATION.name].load_async(
-                station_information_df
+            to_thread(
+                session.tables[Skeleton.tables.STATION_INFORMATION.name].load,
+                station_information_df,
             ),
-            session.tables[Skeleton.tables.STATION_STATUS.name].load_async(
-                station_status_df
+            to_thread(
+                session.tables[Skeleton.tables.STATION_STATUS.name].load,
+                station_status_df,
             ),
         )

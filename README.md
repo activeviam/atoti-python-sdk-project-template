@@ -1,6 +1,6 @@
 # Atoti Project Template
 
-This template can be used to start Atoti projects where the goal is to [go into production rather than prototyping in a notebook](https://docs.atoti.io/latest/deployment/going_from_a_notebook_to_an_app.html).
+This template can be used to start Atoti projects where the goal is to [go into production rather than prototyping in a notebook](https://docs.activeviam.com/engine/python-sdk/6.2/getting_started/deployment/going_from_a_notebook_to_an_app).
 
 On top of the `atoti` package, it comes with:
 
@@ -25,17 +25,19 @@ On top of the `atoti` package, it comes with:
 
 ### Commands
 
-To start the app:
+Start the app:
 
-```bash
-uv run python -m app
-```
+- with Docker and [Grafana OpenTelemetry LGTM](https://grafana.com/docs/opentelemetry/docker-lgtm):
 
-To start the app in Docker with [Grafana OpenTelemetry LGTM](https://grafana.com/docs/opentelemetry/docker-lgtm):
+  ```bash
+  docker compose up --build
+  ```
 
-```bash
-docker compose up --build
-```
+- without them:
+
+  ```bash
+  uv run python -m app
+  ```
 
 Other useful commands can be found in [`test.yml`](.github/workflows/test.yml).
 
